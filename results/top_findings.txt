@@ -1,0 +1,73 @@
+==============================================================================
+FERTILITY vs BUSINESS CYCLE -- correlation results
+==============================================================================
+
+Fertility series : Fruktbarhet_riket_kvinnor.csv -- 2000-2025 (26 years), children per woman (TFR/ASFR-like), range 1.42-1.98
+Detrending       : diff
+Exposure window  : 12 months, ending 9 months (gestation) + lag before the mean birth date (month 7)
+Lags tested      : [0, 6, 12, 18, 24, 36] months
+Tests run        : 168
+
+------------------------------------------------------------------------------
+TOP 15 BY |r|
+------------------------------------------------------------------------------
+indicator                       measure     lag       r            95% CI    p_adj       q   n
+Sysselsättning                  change        0  -0.476     [-0.81,+0.06]    0.022   0.941  23
+Nyregistrerade lastbilar        change        6  -0.446     [-0.73,+0.00]    0.033   0.941  23
+Varuimport                      level         0  -0.412     [-0.68,-0.02]    0.046   0.941  24
+Varuimport                      change        6  -0.404     [-0.72,+0.06]    0.056   0.941  23
+BNP-indikator månad             change        0  -0.402     [-0.62,+0.10]    0.051   0.941  24
+BNP-indikator månad             change        6  -0.401     [-0.70,+0.06]    0.058   0.941  23
+Varuexport                      change        6  -0.389     [-0.70,-0.01]    0.066   0.941  23
+Näringslivets produktion        change        6  -0.386     [-0.73,+0.21]    0.069   0.941  23
+Näringslivets produktion        change        0  -0.372     [-0.65,+0.28]    0.074   0.941  24
+Arbetade timmar                 level        36  -0.359     [-0.58,-0.01]    0.120   0.941  20
+Industrins orderingång          change        6  -0.354     [-0.71,+0.14]    0.097   0.941  23
+Näringslivets efterfrågan       change        6  -0.339     [-0.73,+0.12]    0.133   0.941  21
+Nyregistrerade personbilar      change        6  -0.320     [-0.66,+0.07]    0.137   0.941  23
+Industrins orderingång          level         0  -0.317     [-0.61,+0.19]    0.133   0.941  24
+Näringslivets efterfrågan       level         0  -0.308     [-0.67,+0.18]    0.172   0.941  22
+
+------------------------------------------------------------------------------
+SURVIVING MULTIPLICITY CONTROL (BH q < 0.10)
+------------------------------------------------------------------------------
+None. With ~25 annual observations and this many tests, that is the
+expected outcome unless an effect is strong. Treat the table above as
+hypothesis-generating, not as findings.
+
+------------------------------------------------------------------------------
+BEST LAG PER INDICATOR (measure = level)
+------------------------------------------------------------------------------
+  Varuimport                           lag  0m  r=-0.412  p_adj=0.046
+  Arbetade timmar                      lag 36m  r=-0.359  p_adj=0.120
+  Industrins orderingång               lag  0m  r=-0.317  p_adj=0.133
+  Näringslivets efterfrågan            lag  0m  r=-0.308  p_adj=0.172
+  Sysselsättning                       lag 12m  r=+0.308  p_adj=0.186
+  Nyregistrerade personbilar           lag  0m  r=-0.303  p_adj=0.155
+  Nyregistrerade lastbilar             lag 18m  r=+0.292  p_adj=0.200
+  Varuexport                           lag 12m  r=+0.289  p_adj=0.181
+  Näringslivets produktion             lag 18m  r=+0.285  p_adj=0.210
+  BNP-indikator månad                  lag 12m  r=+0.268  p_adj=0.219
+  Hushållens konfidensindikator        lag  6m  r=-0.229  p_adj=0.292
+  BNP kvartal                          lag 12m  r=+0.228  p_adj=0.302
+  Hushållens konsumtion                lag 36m  r=-0.226  p_adj=0.356
+  Detaljhandel sällanköpsvaror         lag  6m  r=-0.215  p_adj=0.370
+
+------------------------------------------------------------------------------
+READING THIS
+------------------------------------------------------------------------------
+* p_adj corrects the nominal p-value for serial correlation via the
+  effective sample size; it is the one to quote, and it is always the
+  more conservative of the two.
+* q is the Benjamini-Hochberg FDR across every test in the grid. A
+  small r with q > 0.10 is noise you looked at many times.
+* The 14 indicators are not independent -- GDP, hours worked,
+  employment and business-sector production move together -- so
+  "several indicators agree" is much weaker evidence than it looks.
+* The 1980s parental-leave reforms sit outside this window (data starts
+  2000), but pronatalist policy, migration composition and the
+  2008 and 2020 shocks are all live confounders inside it.
+* Correlation on ~25 annual points cannot separate "the economy drives
+  fertility" from "both respond to something else". A panel across
+  municipalities or counties buys far more identifying variation than
+  a longer national time series would.

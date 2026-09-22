@@ -35,22 +35,34 @@ meaningless numbers. So this does four things properly:
 
 Usage
 -----
-Minimum: the Konjunkturklockan CSV plus a fertility series.
+With konjunkturklockan.csv and Fruktbarhet_riket_kvinnor.csv in the working
+directory, no arguments are needed:
 
-    # fertility as a plain two-column file (year, value) -- e.g. TFR from SCB
+    python3 fertility_konjunktur_corr.py
+
+Otherwise, or for other inputs:
+
+    # any flat year/value file, header or not, extra dimension columns fine
     python3 fertility_konjunktur_corr.py \
         --konjunktur konjunkturklockan.csv \
-        --fertility tfr_sverige.csv \
+        --fertility Fruktbarhet_riket_kvinnor.csv \
         --outdir results/
+
+    # one region out of a file covering several
+    python3 fertility_konjunktur_corr.py \
+        --fertility fruktbarhet_lan.csv --fert-filter "region=03 Uppsala"
 
     # fertility straight out of a long-format SCB table (e.g. TAB1264)
     python3 fertility_konjunktur_corr.py \
-        --konjunktur konjunkturklockan.csv \
-        --fertility TAB1264_sv.csv --fertility-format scb-long \
-        --outdir results/
+        --fertility TAB1264_sv.csv --fertility-format scb-long
 
     # inspect a fertility file's schema without running the analysis
     python3 fertility_konjunktur_corr.py --fertility TAB1264_sv.csv --inspect
+
+The fertility loader locates the year and value columns by content, not by
+position, sniffs whether there is a header row (a headerless file otherwise
+loses its first observation), and refuses to silently pool a multi-valued
+dimension such as region.
 
 Outputs (in --outdir)
 ---------------------
@@ -113,29 +125,65 @@ MEASURE_CHANGE = "Förändring från föregående period"
 # --------------------------------------------------------------------------
 
 
-def read_csv_robust(path: Path, **kwargs) -> pd.DataFrame:
-    """Read a CSV without knowing its encoding or separator up front.
+def _row_is_header(first_row: pd.Series, rest: pd.DataFrame) -> bool:
+    """Decide whether row 0 is a header or already data.
 
-    SCB ships files in ISO-8859-1 as often as UTF-8, and semicolon-separated
-    as often as comma-separated. Try the plausible combinations and keep the
-    first that yields more than one column.
+    SCB exports are inconsistent: some carry a header row, some (notably
+    hand-trimmed extracts from Statistikdatabasen) start straight at the
+    data. Guessing wrong silently deletes an observation, so decide it
+    explicitly: row 0 is a header only if it contains no year-like or
+    decimal-numeric cell while the rows below it do.
+    """
+    def numeric_like(values: pd.Series) -> float:
+        text = values.astype(str).str.strip().str.replace(",", ".", regex=False)
+        return float(pd.to_numeric(text, errors="coerce").notna().mean())
+
+    if rest.empty:
+        return False
+    return numeric_like(first_row) == 0.0 and numeric_like(rest.iloc[0]) > 0.0
+
+
+def read_csv_robust(path: Path, **kwargs) -> pd.DataFrame:
+    """Read a CSV without knowing its encoding, separator, or header up front.
+
+    SCB ships files in ISO-8859-1 as often as UTF-8, semicolon-separated as
+    often as comma-separated, and with or without a header row. Try the
+    plausible combinations, keep the first that yields more than one column,
+    and sniff the header rather than assuming one.
     """
     encodings = ["utf-8-sig", "utf-8", "iso-8859-1", "cp1252"]
     separators = kwargs.pop("sep", None)
     separators = [separators] if separators else [";", ",", "\t"]
+    forced_header = kwargs.pop("header", "sniff")
 
     last_error: Exception | None = None
     for enc in encodings:
         for sep in separators:
             try:
-                df = pd.read_csv(path, sep=sep, encoding=enc, **kwargs)
+                raw = pd.read_csv(path, sep=sep, encoding=enc, header=None, **kwargs)
             except Exception as exc:  # noqa: BLE001 - genuinely want any failure
                 last_error = exc
                 continue
-            if df.shape[1] > 1:
-                df.attrs["encoding"] = enc
-                df.attrs["sep"] = sep
-                return df
+            if raw.shape[1] < 2:
+                continue
+
+            if forced_header == "sniff":
+                has_header = _row_is_header(raw.iloc[0], raw.iloc[1:])
+            else:
+                has_header = forced_header == 0
+
+            if has_header:
+                df = raw.iloc[1:].reset_index(drop=True)
+                df.columns = [str(c).strip().lstrip("﻿") for c in raw.iloc[0]]
+            else:
+                df = raw
+                df.columns = [f"col{i}" for i in range(raw.shape[1])]
+
+            df = df.infer_objects()
+            df.attrs["encoding"] = enc
+            df.attrs["sep"] = sep
+            df.attrs["had_header"] = has_header
+            return df
     if last_error is not None:
         raise last_error
     raise ValueError(f"Could not parse {path} into more than one column.")
@@ -250,41 +298,184 @@ def inspect_fertility_file(path: Path) -> None:
     )
 
 
-def load_fertility_simple(
-    path: Path, year_col: str | None, value_col: str | None, verbose: bool = True
+def _find_year_column(df: pd.DataFrame) -> str | None:
+    """Find the year column by content: mostly 4-digit values in 1900-2100."""
+    best, best_score = None, 0.0
+    for col in df.columns:
+        nums = pd.to_numeric(
+            df[col].astype(str).str.strip().str.extract(r"^(\d{4})$")[0],
+            errors="coerce",
+        )
+        score = float(((nums >= 1900) & (nums <= 2100)).mean())
+        if score > best_score:
+            best, best_score = col, score
+    return best if best_score > 0.8 else None
+
+
+def _find_value_column(df: pd.DataFrame, exclude: list[str]) -> str | None:
+    """Find the measurement column: the most-numeric column that isn't a year."""
+    best, best_score = None, 0.0
+    for col in df.columns:
+        if col in exclude:
+            continue
+        nums = pd.to_numeric(
+            df[col].astype(str).str.strip().str.replace(",", ".", regex=False),
+            errors="coerce",
+        )
+        score = float(nums.notna().mean())
+        # A column of clean 4-digit integers is another year/id column, not a
+        # measurement -- penalise it.
+        if score > 0.8 and nums.dropna().between(1900, 2100).mean() > 0.9:
+            if (nums.dropna() % 1 == 0).mean() > 0.95:
+                score *= 0.2
+        if score > best_score:
+            best, best_score = col, score
+    return best if best_score > 0.8 else None
+
+
+def describe_units(values: pd.Series) -> tuple[str, str]:
+    """Guess whether the series is a rate (TFR/ASFR) or raw birth counts."""
+    median = float(values.median())
+    if 0.3 <= median <= 8:
+        return ("rate", "children per woman (TFR/ASFR-like)")
+    if median > 500:
+        return ("count", "birth counts")
+    return ("unknown", "unrecognised scale")
+
+
+def load_fertility_series(
+    path: Path,
+    year_col: str | None,
+    value_col: str | None,
+    filters: dict[str, str] | None = None,
+    agg: str = "auto",
+    verbose: bool = True,
 ) -> pd.Series:
-    """Load a two-column (year, value) fertility file, e.g. a TFR series."""
+    """Load a fertility series from a flat file, header or no header.
+
+    Handles the common shapes of an SCB Statistikdatabasen extract:
+      region,sex,year,value      (no header -- e.g. Fruktbarhet_riket_kvinnor)
+      år;TFR                     (two columns, with header)
+      any column order, comma or semicolon, UTF-8 or ISO-8859-1.
+
+    Columns are located by content rather than position, extra dimension
+    columns (region, sex) are reported, and multi-valued dimensions must be
+    resolved with --fert-filter rather than being silently pooled.
+    """
     df = read_csv_robust(path)
     df.columns = [str(c).strip().lstrip("﻿") for c in df.columns]
 
-    year_col = year_col or _guess_column(list(df.columns), YEAR_HINTS) or df.columns[0]
+    if verbose:
+        header_note = "with header" if df.attrs.get("had_header") else "no header row"
+        print(
+            f"[fertility] {path.name}: {header_note}, "
+            f"sep={df.attrs.get('sep')!r}, encoding={df.attrs.get('encoding')}, "
+            f"{len(df)} rows, columns={list(df.columns)}"
+        )
+
+    # Apply user filters before detection so they can disambiguate.
+    if filters:
+        for col, val in filters.items():
+            if col not in df.columns:
+                raise ValueError(
+                    f"--fert-filter column {col!r} not found. "
+                    f"Available: {list(df.columns)}"
+                )
+            before = len(df)
+            df = df[df[col].astype(str).str.strip() == val]
+            if verbose:
+                print(f"[fertility]   filter {col}={val!r}: {before} -> {len(df)} rows")
+            if df.empty:
+                raise ValueError(f"--fert-filter {col}={val!r} matched no rows.")
+
+    year_col = year_col or _guess_column(list(df.columns), YEAR_HINTS) or _find_year_column(df)
+    if year_col is None:
+        raise ValueError(
+            f"Could not identify a year column in {path.name} "
+            f"(columns: {list(df.columns)}). Pass --fert-year-col."
+        )
     if value_col is None:
-        candidates = [c for c in df.columns if c != year_col]
-        value_col = _guess_column(candidates, VALUE_HINTS) or candidates[-1]
+        value_col = _guess_column(
+            [c for c in df.columns if c != year_col], VALUE_HINTS
+        ) or _find_value_column(df, exclude=[year_col])
+    if value_col is None:
+        raise ValueError(
+            f"Could not identify a value column in {path.name} "
+            f"(columns: {list(df.columns)}). Pass --fert-value-col."
+        )
+
+    dim_cols = [c for c in df.columns if c not in (year_col, value_col)]
+    if verbose:
+        print(f"[fertility]   year={year_col!r}, value={value_col!r}")
+        for col in dim_cols:
+            uniques = df[col].astype(str).str.strip().unique()
+            if len(uniques) == 1:
+                print(f"[fertility]   {col!r}: constant {uniques[0]!r} -- fine")
+            else:
+                print(
+                    f"[fertility]   {col!r}: {len(uniques)} distinct values "
+                    f"{sorted(uniques)[:6]}"
+                )
 
     years = pd.to_numeric(
         df[year_col].astype(str).str.extract(r"(\d{4})")[0], errors="coerce"
     )
     values = pd.to_numeric(
-        df[value_col].astype(str).str.replace(",", ".", regex=False).str.replace(
-            r"[^\d.\-eE]", "", regex=True
-        ),
+        df[value_col].astype(str).str.strip().str.replace(",", ".", regex=False),
         errors="coerce",
     )
-    out = (
-        pd.DataFrame({"year": years, "fertility": values})
-        .dropna()
-        .groupby("year")["fertility"]
-        .sum()
-    )
+    tidy = pd.DataFrame({"year": years, "fertility": values}).dropna()
+    if tidy.empty:
+        raise ValueError(
+            f"No usable (year, value) pairs parsed from {path.name}. "
+            f"Check --fert-year-col / --fert-value-col."
+        )
+
+    kind, unit_label = describe_units(tidy["fertility"])
+
+    # Choosing the aggregator matters: summing rates is meaningless, summing
+    # counts is correct. Only relevant when a year appears more than once.
+    dupes = int(tidy["year"].duplicated().sum())
+    if agg == "auto":
+        agg = "sum" if kind == "count" else "mean"
+    if dupes and verbose:
+        print(
+            f"[fertility]   {dupes} duplicate year rows -> aggregating with "
+            f"'{agg}' (detected as {kind}). Use --fert-agg to override; "
+            f"note that summing a rate like TFR is not meaningful."
+        )
+        if len(dim_cols) > 1 or any(
+            df[c].astype(str).str.strip().nunique() > 1 for c in dim_cols
+        ):
+            print(
+                "[fertility]   WARNING: duplicate years come from a "
+                "multi-valued dimension above. Pool deliberately or restrict "
+                "it with --fert-filter COL=VALUE."
+            )
+
+    out = tidy.groupby("year")["fertility"].agg(agg)
     out.index = out.index.astype(int)
+    out = out.sort_index()
+
     if verbose:
         print(
-            f"[fertility] simple format: year column {year_col!r}, "
-            f"value column {value_col!r} -> {len(out)} years "
-            f"({out.index.min()}..{out.index.max()})"
+            f"[fertility]   -> {len(out)} years ({out.index.min()}..{out.index.max()}), "
+            f"values {out.min():.3g}..{out.max():.3g} [{unit_label}]"
         )
-    return out.sort_index()
+        gaps = sorted(set(range(out.index.min(), out.index.max() + 1)) - set(out.index))
+        if gaps:
+            print(f"[fertility]   WARNING: missing years in the range: {gaps}")
+        if kind == "count":
+            print(
+                "[fertility]   NOTE: these look like birth COUNTS, not rates. "
+                "Counts move with the size of the female population of "
+                "childbearing age, itself correlated with the economy through "
+                "migration. Convert to ASFR/TFR before interpreting."
+            )
+    out.attrs["kind"] = kind
+    out.attrs["unit_label"] = unit_label
+    out.attrs["source"] = path.name
+    return out
 
 
 def load_fertility_scb_long(
@@ -648,6 +839,141 @@ def run_analysis(
 # --------------------------------------------------------------------------
 
 
+def run_specification_curve(
+    monthly: pd.DataFrame,
+    fertility: pd.Series,
+    lags: list[int],
+    spec_base: ExposureSpec,
+    methods: list[str],
+    min_years: int,
+    min_coverage: float,
+    seed: int,
+) -> pd.DataFrame:
+    """Re-run every correlation under each detrending method.
+
+    The detrending choice is a researcher degree of freedom, and on 25 annual
+    observations it can flip a result. Rather than picking one and reporting
+    it, this reports r under all of them so sign instability is visible.
+    """
+    frames = []
+    for method in methods:
+        try:
+            res, _, _ = run_analysis(
+                monthly=monthly,
+                fertility=fertility,
+                lags=lags,
+                spec_base=spec_base,
+                detrend_method=method,
+                min_years=min_years,
+                min_coverage=min_coverage,
+                n_boot=0,  # CIs are not the point here; keep it fast
+                seed=seed,
+            )
+        except SystemExit as exc:  # e.g. hp without statsmodels
+            print(f"[robustness] skipping detrend={method}: {exc}")
+            continue
+        if res.empty:
+            continue
+        res = res[["indikator", "measure", "lag_months", "pearson_r",
+                   "p_autocorr_adjusted", "q_value_BH"]].copy()
+        res["detrend"] = method
+        frames.append(res)
+
+    if not frames:
+        return pd.DataFrame()
+
+    long = pd.concat(frames, ignore_index=True)
+    wide = long.pivot_table(
+        index=["indikator", "measure", "lag_months"],
+        columns="detrend",
+        values="pearson_r",
+    )
+    qwide = long.pivot_table(
+        index=["indikator", "measure", "lag_months"],
+        columns="detrend",
+        values="q_value_BH",
+    )
+
+    summary = pd.DataFrame(index=wide.index)
+    for method in wide.columns:
+        summary[f"r_{method}"] = wide[method]
+    summary["r_min"] = wide.min(axis=1)
+    summary["r_max"] = wide.max(axis=1)
+    summary["r_range"] = summary["r_max"] - summary["r_min"]
+    signs = np.sign(wide)
+    summary["sign_stable"] = (
+        signs.apply(lambda row: row.dropna().abs().sum() == abs(row.dropna().sum()),
+                    axis=1)
+    )
+    summary["n_specs"] = wide.notna().sum(axis=1)
+    summary["min_q"] = qwide.min(axis=1)
+    summary["robust"] = (
+        summary["sign_stable"]
+        & (summary["min_q"] < 0.10)
+        & (summary["n_specs"] >= max(2, len(wide.columns) - 1))
+    )
+    return summary.reset_index().sort_values("r_range")
+
+
+def format_robustness(summary: pd.DataFrame, methods: list[str]) -> str:
+    lines: list[str] = []
+    add = lines.append
+    add("=" * 78)
+    add("SPECIFICATION CURVE -- does the result survive the detrending choice?")
+    add("=" * 78)
+    add(f"Methods compared: {methods}")
+    add("")
+    if summary.empty:
+        add("No specifications ran.")
+        return "\n".join(lines)
+
+    flips = summary[~summary["sign_stable"]]
+    add(f"Tests run under >=2 specifications : {len(summary)}")
+    add(f"Sign FLIPS across specifications   : {len(flips)} "
+        f"({len(flips) / len(summary):.0%})")
+    add("")
+
+    robust = summary[summary["robust"]].sort_values("r_min", key=abs, ascending=False)
+    add("-" * 78)
+    add("ROBUST: same sign in every specification AND q < 0.10 in at least one")
+    add("-" * 78)
+    if robust.empty:
+        add("  None.")
+    else:
+        rcols = [c for c in summary.columns if c.startswith("r_")
+                 and c not in ("r_min", "r_max", "r_range")]
+        header = "".join(f"{c.replace('r_', ''):>9}" for c in rcols)
+        add(f"{'indicator':<30}{'meas':<8}{'lag':>4}{header}{'min q':>8}")
+        for _, row in robust.head(20).iterrows():
+            measure = "level" if row["measure"] == MEASURE_LEVEL else "change"
+            cells = "".join(
+                f"{row[c]:>+9.2f}" if np.isfinite(row[c]) else f"{'--':>9}"
+                for c in rcols
+            )
+            add(
+                f"{row['indikator'][:29]:<30}{measure:<8}"
+                f"{int(row['lag_months']):>4}{cells}{row['min_q']:>8.3f}"
+            )
+    add("")
+    add("-" * 78)
+    add("HOW TO USE THIS")
+    add("-" * 78)
+    add(textwrap.dedent("""\
+        A result that changes sign when you switch from first-differencing to
+        an HP filter is not a result; it is a description of the filter. Only
+        rows listed as robust above are worth writing up as associations, and
+        even those are associations on ~25 national-level annual observations,
+        which is not enough to support a causal claim.
+
+        If the specifications disagree badly, that is itself worth reporting.
+        For Swedish TFR over 2000-2025 the likely reason is that the secular
+        post-2010 fertility decline -- a Nordic-wide phenomenon visible in
+        Finland and Norway too, and not obviously a business-cycle effect --
+        is large relative to any cyclical variation, so whatever the filter
+        does with that decline drives the correlation."""))
+    return "\n".join(lines)
+
+
 def format_report(
     results: pd.DataFrame,
     fertility: pd.Series,
@@ -663,8 +989,11 @@ def format_report(
     add("FERTILITY vs BUSINESS CYCLE -- correlation results")
     add("=" * 78)
     add("")
-    add(f"Fertility series : {fertility.index.min()}-{fertility.index.max()} "
-        f"({len(fertility)} years)")
+    add(f"Fertility series : {fertility.attrs.get('source', 'input')} -- "
+        f"{fertility.index.min()}-{fertility.index.max()} "
+        f"({len(fertility)} years), "
+        f"{fertility.attrs.get('unit_label', 'unknown units')}, "
+        f"range {fertility.min():.3g}-{fertility.max():.3g}")
     add(f"Detrending       : {detrend_method}")
     add(f"Exposure window  : {spec.window_months} months, ending "
         f"{spec.gestation_months} months (gestation) + lag before the mean "
@@ -859,6 +1188,28 @@ def make_plots(
 # --------------------------------------------------------------------------
 
 
+def parse_filters(items: list[str] | None) -> dict[str, str]:
+    """Parse repeated --fert-filter COL=VALUE options into a dict."""
+    out: dict[str, str] = {}
+    for item in items or []:
+        if "=" not in item:
+            raise SystemExit(
+                f"--fert-filter expects COL=VALUE, got {item!r}"
+            )
+        col, val = item.split("=", 1)
+        out[col.strip()] = val.strip()
+    return out
+
+
+def find_default(candidates: list[str]) -> Path | None:
+    """Look for a known filename in the working directory."""
+    for name in candidates:
+        p = Path(name)
+        if p.exists():
+            return p
+    return None
+
+
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p = argparse.ArgumentParser(
         description="Correlate Swedish fertility with Konjunkturklockan indicators.",
@@ -871,17 +1222,31 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
               %(prog)s --fertility TAB1264_sv.csv --inspect
         """),
     )
-    p.add_argument("--konjunktur", type=Path, help="Konjunkturklockan CSV.")
-    p.add_argument("--fertility", type=Path, required=True,
-                   help="Fertility CSV: TFR/ASFR series or a long SCB table.")
+    p.add_argument("--konjunktur", type=Path,
+                   help="Konjunkturklockan CSV "
+                        "(default: konjunkturklockan.csv in this directory).")
+    p.add_argument("--fertility", type=Path,
+                   help="Fertility CSV: TFR/ASFR series or a long SCB table "
+                        "(default: Fruktbarhet_riket_kvinnor.csv here).")
     p.add_argument("--fertility-format", choices=["simple", "scb-long"],
                    default="simple",
-                   help="'simple' = two columns (year, value); "
-                        "'scb-long' = long SCB table needing aggregation.")
+                   help="'simple' = a flat year/value file, with or without a "
+                        "header and with any number of extra dimension columns "
+                        "(the default; handles Fruktbarhet_riket_kvinnor.csv). "
+                        "'scb-long' = long SCB table needing aggregate-row "
+                        "removal and summation, e.g. TAB1264.")
     p.add_argument("--fert-year-col", help="Override year column name.")
     p.add_argument("--fert-value-col", help="Override value column name.")
+    p.add_argument("--fert-filter", action="append", metavar="COL=VALUE",
+                   help="Keep only rows where COL equals VALUE. Repeatable. "
+                        "Use to pick one region/sex when the file has several.")
+    p.add_argument("--fert-agg", choices=["auto", "mean", "sum", "first"],
+                   default="auto",
+                   help="How to combine duplicate years: 'auto' means sum for "
+                        "counts, mean for rates (default).")
     p.add_argument("--fert-dim-cols", nargs="*",
-                   help="Dimension columns to screen for aggregate rows.")
+                   help="scb-long only: dimension columns to screen for "
+                        "aggregate rows.")
     p.add_argument("--keep-aggregates", action="store_true",
                    help="Do NOT drop SCB aggregate/total rows (rarely correct).")
     p.add_argument("--inspect", action="store_true",
@@ -909,26 +1274,61 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p.add_argument("--outdir", type=Path, default=Path("results"),
                    help="Output directory (default: results/).")
     p.add_argument("--no-plots", action="store_true", help="Skip figures.")
+    p.add_argument("--robustness", action="store_true",
+                   help="Also re-run every correlation under each detrending "
+                        "method and report which results keep their sign. "
+                        "Strongly recommended before quoting any number.")
+    p.add_argument("--robustness-methods", nargs="+",
+                   default=["diff", "linear", "hp"],
+                   help="Detrending methods for --robustness "
+                        "(default: diff linear hp).")
     return p.parse_args(argv)
 
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
 
+    if args.fertility is None:
+        args.fertility = find_default(
+            ["Fruktbarhet_riket_kvinnor.csv", "fruktbarhet_riket_kvinnor.csv"]
+        )
+    if args.fertility is None:
+        print(
+            "error: no fertility file given and none found in this directory. "
+            "Pass --fertility.",
+            file=sys.stderr,
+        )
+        return 2
+    if not args.fertility.exists():
+        print(f"error: fertility file not found: {args.fertility}", file=sys.stderr)
+        return 2
+
     if args.inspect:
         inspect_fertility_file(args.fertility)
         return 0
 
     if args.konjunktur is None:
-        print("error: --konjunktur is required unless --inspect is used.",
-              file=sys.stderr)
+        args.konjunktur = find_default(["konjunkturklockan.csv", "Konjunkturklockan.csv"])
+    if args.konjunktur is None:
+        print(
+            "error: no Konjunkturklockan file given and none found in this "
+            "directory. Pass --konjunktur.",
+            file=sys.stderr,
+        )
+        return 2
+    if not args.konjunktur.exists():
+        print(f"error: konjunktur file not found: {args.konjunktur}", file=sys.stderr)
         return 2
 
     monthly = load_konjunktur(args.konjunktur)
 
     if args.fertility_format == "simple":
-        fertility = load_fertility_simple(
-            args.fertility, args.fert_year_col, args.fert_value_col
+        fertility = load_fertility_series(
+            args.fertility,
+            args.fert_year_col,
+            args.fert_value_col,
+            filters=parse_filters(args.fert_filter),
+            agg=args.fert_agg,
         )
     else:
         fertility = load_fertility_scb_long(
@@ -1010,6 +1410,28 @@ def main(argv: list[str] | None = None) -> int:
                 results, panels, fert_detrended, args.detrend, args.outdir
             ):
                 print(f"[plots] wrote {path}")
+
+    if args.robustness:
+        print("\n[robustness] re-running under each detrending method...")
+        summary = run_specification_curve(
+            monthly=monthly,
+            fertility=fertility,
+            lags=args.lags,
+            spec_base=spec,
+            methods=args.robustness_methods,
+            min_years=args.min_years,
+            min_coverage=args.min_coverage,
+            seed=args.seed,
+        )
+        robustness_report = format_robustness(summary, args.robustness_methods)
+        print("\n" + robustness_report)
+        (args.outdir / "robustness.txt").write_text(
+            robustness_report, encoding="utf-8"
+        )
+        if not summary.empty:
+            summary.to_csv(
+                args.outdir / "specification_curve.csv", index=False, encoding="utf-8"
+            )
 
     print(f"\nWrote outputs to {args.outdir.resolve()}/")
     return 0
