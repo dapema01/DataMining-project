@@ -1,0 +1,30 @@
+{
+  "features": [
+    "konsumtion_lag1",
+    "sysselsattning_lag1",
+    "bnp_lag1"
+  ],
+  "min_support": 0.05,
+  "min_confidence": 0.6,
+  "min_lift": 1.1,
+  "min_villkorsar": 3,
+  "min_regelar": 3,
+  "max_regler": 5,
+  "lagg": 1,
+  "gruppindelning": "SKR 2023, retrospektivt",
+  "traning": [
+    2004,
+    2015
+  ],
+  "validering": [
+    2016,
+    2019
+  ],
+  "senare_ar": [
+    2020,
+    2025
+  ],
+  "neutralt": "exakt noll efter avrundning till två decimaler",
+  "conflict": "första matchande regel i träningsrangordningen",
+  "fallback": "vanligaste utfallet i kommungruppens träningsdata"
+}

@@ -1,0 +1,46 @@
+{
+  "neutralzoner": {
+    "exakt_noll": 0.0,
+    "neutral_002": 0.02
+  },
+  "perioder": {
+    "traning": [
+      2004,
+      2015
+    ],
+    "validering": [
+      2016,
+      2019
+    ],
+    "senare_ar": [
+      2020,
+      2025
+    ]
+  },
+  "krav": {
+    "support": 0.05,
+    "confidence": 0.6,
+    "lift": 1.1,
+    "villkor_ar": 3,
+    "regel_ar": 3
+  },
+  "lagg": 1,
+  "indikatorer": [
+    "Arbetade timmar",
+    "BNP kvartal",
+    "BNP-indikator månad",
+    "Detaljhandel sällanköpsvaror",
+    "Hushållens konfidensindikator",
+    "Hushållens konsumtion",
+    "Industrins orderingång",
+    "Nyregistrerade lastbilar",
+    "Nyregistrerade personbilar",
+    "Näringslivets efterfrågan",
+    "Näringslivets produktion",
+    "Sysselsättning",
+    "Varuexport",
+    "Varuimport"
+  ],
+  "parregel": "Två bästa positiva valideringsförbättringar per grupp/zon; ej BNP kvartal",
+  "tolkning": "Explorativ retrospektiv utvärdering med SKR 2023 och reviderad konjunkturdata"
+}
