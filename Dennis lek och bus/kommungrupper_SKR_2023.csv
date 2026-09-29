@@ -1,0 +1,291 @@
+﻿Kommunkod,Kommun_SKR,skr_huvudgrupp_kod,skr_huvudgrupp,skr_gruppkod,skr_kommungrupp
+0180,Stockholm,A,Storstäder och storstadsnära kommuner,A1,Storstäder
+1280,Malmö,A,Storstäder och storstadsnära kommuner,A1,Storstäder
+1480,Göteborg,A,Storstäder och storstadsnära kommuner,A1,Storstäder
+0114,Upplands Väsby,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+0115,Vallentuna,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+0117,Österåker,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+0120,Värmdö,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+0123,Järfälla,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+0125,Ekerö,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+0126,Huddinge,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+0127,Botkyrka,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+0128,Salem,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+0136,Haninge,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+0138,Tyresö,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+0139,Upplands-Bro,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+0160,Täby,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+0162,Danderyd,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+0163,Sollentuna,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+0182,Nacka,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+0183,Sundbyberg,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+0184,Solna,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+0186,Lidingö,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+0187,Vaxholm,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+0191,Sigtuna,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+0192,Nynäshamn,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+0305,Håbo,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+1230,Staffanstorp,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+1231,Burlöv,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+1233,Vellinge,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+1261,Kävlinge,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+1262,Lomma,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+1263,Svedala,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+1264,Skurup,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+1287,Trelleborg,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+1384,Kungsbacka,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+1401,Härryda,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+1402,Partille,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+1407,Öckerö,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+1415,Stenungsund,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+1440,Ale,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+1441,Lerum,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+1443,Bollebygd,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+1462,Lilla Edet,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+1481,Mölndal,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+1482,Kungälv,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+1489,Alingsås,A,Storstäder och storstadsnära kommuner,A2,Pendlingskommun nära storstad
+0181,Södertälje,B,Större städer och kommuner nära större stad,B3,Större stad
+0380,Uppsala,B,Större städer och kommuner nära större stad,B3,Större stad
+0484,Eskilstuna,B,Större städer och kommuner nära större stad,B3,Större stad
+0580,Linköping,B,Större städer och kommuner nära större stad,B3,Större stad
+0581,Norrköping,B,Större städer och kommuner nära större stad,B3,Större stad
+0680,Jönköping,B,Större städer och kommuner nära större stad,B3,Större stad
+0780,Växjö,B,Större städer och kommuner nära större stad,B3,Större stad
+0880,Kalmar,B,Större städer och kommuner nära större stad,B3,Större stad
+1281,Lund,B,Större städer och kommuner nära större stad,B3,Större stad
+1283,Helsingborg,B,Större städer och kommuner nära större stad,B3,Större stad
+1290,Kristianstad,B,Större städer och kommuner nära större stad,B3,Större stad
+1380,Halmstad,B,Större städer och kommuner nära större stad,B3,Större stad
+1488,Trollhättan,B,Större städer och kommuner nära större stad,B3,Större stad
+1490,Borås,B,Större städer och kommuner nära större stad,B3,Större stad
+1780,Karlstad,B,Större städer och kommuner nära större stad,B3,Större stad
+1880,Örebro,B,Större städer och kommuner nära större stad,B3,Större stad
+1980,Västerås,B,Större städer och kommuner nära större stad,B3,Större stad
+2081,Borlänge,B,Större städer och kommuner nära större stad,B3,Större stad
+2180,Gävle,B,Större städer och kommuner nära större stad,B3,Större stad
+2281,Sundsvall,B,Större städer och kommuner nära större stad,B3,Större stad
+2380,Östersund,B,Större städer och kommuner nära större stad,B3,Större stad
+2480,Umeå,B,Större städer och kommuner nära större stad,B3,Större stad
+2580,Luleå,B,Större städer och kommuner nära större stad,B3,Större stad
+0140,Nykvarn,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+0319,Älvkarleby,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+0330,Knivsta,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+0331,Heby,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+0360,Tierp,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+0381,Enköping,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+0461,Gnesta,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+0486,Strängnäs,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+0488,Trosa,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+0513,Kinda,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+0561,Åtvidaberg,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+0563,Valdemarsvik,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+0582,Söderköping,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+0586,Mjölby,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+0604,Aneby,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+0642,Mullsjö,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+0643,Habo,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+0665,Vaggeryd,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+0761,Lessebo,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+0764,Alvesta,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+0834,Torsås,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+0840,Mörbylånga,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1083,Sölvesborg,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1214,Svalöv,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1256,Östra Göinge,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1257,Örkelljunga,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1260,Bjuv,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1265,Sjöbo,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1266,Hörby,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1272,Bromölla,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1275,Perstorp,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1276,Klippan,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1277,Åstorp,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1282,Landskrona,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1284,Höganäs,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1285,Eslöv,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1292,Ängelholm,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1381,Laholm,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1444,Grästorp,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1463,Mark,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1465,Svenljunga,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1466,Herrljunga,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1487,Vänersborg,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1715,Kil,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1761,Hammarö,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1763,Forshaga,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1764,Grums,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1814,Lekeberg,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1861,Hallsberg,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1881,Kumla,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1884,Nora,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1907,Surahammar,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1961,Hallstahammar,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+1981,Sala,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+2026,Gagnef,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+2082,Säter,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+2101,Ockelbo,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+2262,Timrå,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+2309,Krokom,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+2401,Nordmaling,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+2403,Bjurholm,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+2409,Robertsfors,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+2460,Vännäs,B,Större städer och kommuner nära större stad,B4,Pendlingskommun nära större stad
+0382,Östhammar,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+0562,Finspång,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+0583,Motala,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+0682,Nässjö,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+0760,Uppvidinge,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+0763,Tingsryd,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+0881,Nybro,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+1293,Hässleholm,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+1315,Hylte,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+1452,Tranemo,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+1485,Uddevalla,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+1491,Ulricehamn,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+1762,Munkfors,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+1781,Kristinehamn,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+1860,Laxå,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+1882,Askersund,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+1885,Lindesberg,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+1983,Köping,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+2181,Sandviken,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+2305,Bräcke,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+2326,Berg,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+2404,Vindeln,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+2560,Älvsbyn,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+2582,Boden,B,Större städer och kommuner nära större stad,B5,Lågpendlingskommun nära större stad
+0188,Norrtälje,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+0480,Nyköping,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+0483,Katrineholm,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+0683,Värnamo,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+0781,Ljungby,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+0882,Oskarshamn,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+0883,Västervik,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+0980,Gotland,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+1080,Karlskrona,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+1082,Karlshamn,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+1286,Ystad,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+1382,Falkenberg,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+1383,Varberg,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+1493,Mariestad,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+1494,Lidköping,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+1496,Skövde,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+1499,Falköping,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+1883,Karlskoga,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+2080,Falun,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+2084,Avesta,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+2085,Ludvika,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+2184,Hudiksvall,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+2280,Härnösand,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+2284,Örnsköldsvik,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+2482,Skellefteå,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+2581,Piteå,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+2584,Kiruna,C,Mindre städer/tätorter och landsbygdskommuner,C6,Mindre stad/tätort
+0428,Vingåker,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+0481,Oxelösund,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+0482,Flen,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+0509,Ödeshög,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+0512,Ydre,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+0560,Boxholm,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+0584,Vadstena,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+0617,Gnosjö,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+0684,Sävsjö,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+0686,Eksjö,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+0765,Älmhult,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+0767,Markaryd,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+0821,Högsby,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+0860,Hultsfred,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+0861,Mönsterås,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+0862,Emmaboda,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1060,Olofström,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1081,Ronneby,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1267,Höör,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1270,Tomelilla,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1273,Osby,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1419,Tjörn,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1421,Orust,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1430,Munkedal,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1438,Dals-Ed,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1439,Färgelanda,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1442,Vårgårda,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1445,Essunga,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1446,Karlsborg,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1447,Gullspång,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1461,Mellerud,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1470,Vara,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1471,Götene,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1472,Tibro,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1473,Töreboda,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1492,Åmål,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1495,Skara,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1497,Hjo,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1498,Tidaholm,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1760,Storfors,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1862,Degerfors,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1864,Ljusnarsberg,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1904,Skinnskatteberg,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1960,Kungsör,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1962,Norberg,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1982,Fagersta,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+1984,Arboga,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+2061,Smedjebacken,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+2083,Hedemora,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+2104,Hofors,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+2132,Nordanstig,C,Mindre städer/tätorter och landsbygdskommuner,C7,Pendlingskommun nära mindre tätort
+0662,Gislaved,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+0685,Vetlanda,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+0687,Tranås,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+0884,Vimmerby,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+1460,Bengtsfors,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+1484,Lysekil,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+1737,Torsby,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+1766,Sunne,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+1782,Filipstad,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+1783,Hagfors,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+1784,Arvika,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+1785,Säffle,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+1863,Hällefors,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+2021,Vansbro,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+2121,Ovanåker,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+2161,Ljusdal,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+2182,Söderhamn,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+2183,Bollnäs,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+2260,Ånge,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+2282,Kramfors,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+2283,Sollefteå,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+2303,Ragunda,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+2313,Strömsund,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+2417,Norsjö,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+2418,Malå,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+2425,Dorotea,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+2462,Vilhelmina,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+2463,Åsele,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+2481,Lycksele,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+2505,Arvidsjaur,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+2513,Överkalix,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+2514,Kalix,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+2518,Övertorneå,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+2521,Pajala,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+2583,Haparanda,C,Mindre städer/tätorter och landsbygdskommuner,C8,Landsbygdskommun
+0885,Borgholm,C,Mindre städer/tätorter och landsbygdskommuner,C9,Landsbygdskommun med besöksnäring
+1278,Båstad,C,Mindre städer/tätorter och landsbygdskommuner,C9,Landsbygdskommun med besöksnäring
+1291,Simrishamn,C,Mindre städer/tätorter och landsbygdskommuner,C9,Landsbygdskommun med besöksnäring
+1427,Sotenäs,C,Mindre städer/tätorter och landsbygdskommuner,C9,Landsbygdskommun med besöksnäring
+1435,Tanum,C,Mindre städer/tätorter och landsbygdskommuner,C9,Landsbygdskommun med besöksnäring
+1486,Strömstad,C,Mindre städer/tätorter och landsbygdskommuner,C9,Landsbygdskommun med besöksnäring
+1730,Eda,C,Mindre städer/tätorter och landsbygdskommuner,C9,Landsbygdskommun med besöksnäring
+1765,Årjäng,C,Mindre städer/tätorter och landsbygdskommuner,C9,Landsbygdskommun med besöksnäring
+2023,Malung-Sälen,C,Mindre städer/tätorter och landsbygdskommuner,C9,Landsbygdskommun med besöksnäring
+2029,Leksand,C,Mindre städer/tätorter och landsbygdskommuner,C9,Landsbygdskommun med besöksnäring
+2031,Rättvik,C,Mindre städer/tätorter och landsbygdskommuner,C9,Landsbygdskommun med besöksnäring
+2034,Orsa,C,Mindre städer/tätorter och landsbygdskommuner,C9,Landsbygdskommun med besöksnäring
+2039,Älvdalen,C,Mindre städer/tätorter och landsbygdskommuner,C9,Landsbygdskommun med besöksnäring
+2062,Mora,C,Mindre städer/tätorter och landsbygdskommuner,C9,Landsbygdskommun med besöksnäring
+2321,Åre,C,Mindre städer/tätorter och landsbygdskommuner,C9,Landsbygdskommun med besöksnäring
+2361,Härjedalen,C,Mindre städer/tätorter och landsbygdskommuner,C9,Landsbygdskommun med besöksnäring
+2421,Storuman,C,Mindre städer/tätorter och landsbygdskommuner,C9,Landsbygdskommun med besöksnäring
+2422,Sorsele,C,Mindre städer/tätorter och landsbygdskommuner,C9,Landsbygdskommun med besöksnäring
+2506,Arjeplog,C,Mindre städer/tätorter och landsbygdskommuner,C9,Landsbygdskommun med besöksnäring
+2510,Jokkmokk,C,Mindre städer/tätorter och landsbygdskommuner,C9,Landsbygdskommun med besöksnäring
+2523,Gällivare,C,Mindre städer/tätorter och landsbygdskommuner,C9,Landsbygdskommun med besöksnäring
